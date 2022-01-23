@@ -94,3 +94,19 @@ func funcName(para1 para1Type,para2 para2Type,......) (returnType1, returnType2,
 对于包名相同的两个不同的文件，比如main.go 以及 helper.go都是同一个package main，所以说我们可以将在main.go中的一些需要用到的函数放置在helper.go中，在运行的时候要go run main.go helper.go两个文件同时进行运行，否则会出现错误
 
 这样一来就可以大大监护在main.go中的代码篇幅，会有更好的效果
+
+如果说两个文件处于不同的包中，main.go属于main包，而helper.go属于helper包，那么说在main.go中使用helper.go中的函数时，我们需要导入包，main.go在import中，我们要改成：
+
+![](image/README/1642932399623.png)
+
+并且在调用的时候要明确使用哪个包：
+
+![](image/README/1642932462332.png)
+
+请注意，这里有报错，请用首字母大写的函数，所以说要将调用的函数改成如下：
+
+![](image/README/1642932530166.png)
+
+这样错误便消除，所以说一个包内的函数在调用另一个包内的函数时，要注意将其首字母大写
+
+在 Go 中，当**变量或函数的首字母大写**的时候，函数会被从包中导出（在包外部可见，**或者说公有的**）
