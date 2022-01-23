@@ -27,15 +27,3 @@ func GreetUsers(confName string, confTick int, remainTick uint) {
 	fmt.Printf("We hava total of %v tickets and %v are still available\n", confTick, remainTick)
 	fmt.Println("Get your tickets here to attend")
 }
-func PrintFirstNames(bookings []map[string]string) []string {
-	firstNames := []string{}
-	for _, booking := range bookings {
-		// var names = strings.Fields(booking)
-		// case 1
-		// var firname = booking["firstName"]
-		// firstNames = append(firstNames, firname)
-		// case 2
-		firstNames = append(firstNames, booking["firstName"])
-	}
-	return firstNames
-}

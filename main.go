@@ -3,7 +3,6 @@ package main
 import (
 	"booking-app/helper"
 	"fmt"
-	"strconv"
 )
 
 var (
@@ -12,7 +11,16 @@ var (
 	userTickets uint
 	email       string
 )
-var bookings = make([]map[string]string, 0) // 初始长度 == 0
+
+type UserData struct {
+	firstName       string
+	lastName        string
+	email           string
+	numberOfTickets uint
+}
+
+// var bookings = make([]map[string]string, 0) // 初始长度 == 0
+var bookings = make([]UserData, 0) // 初始长度 == 0
 var conferenceName string = "Go Conference"
 var remainingTickets uint = 50
 
@@ -28,7 +36,7 @@ func main() {
 		if isValidName && isValidEmail && isValidTicketNumber {
 			bookTickets()
 			// print first names func
-			fmt.Printf("The firstnames of our bookings: %v\n", helper.PrintFirstNames(bookings))
+			fmt.Printf("The firstnames of our bookings: %v\n", PrintFirstNames(bookings))
 			var noTicketsRemaining = remainingTickets == 0
 			if noTicketsRemaining {
 				// end the program
@@ -56,11 +64,19 @@ func getUserInput() {
 func bookTickets() {
 	remainingTickets = remainingTickets - userTickets
 	// create a map for user
-	var userData = make(map[string]string)
-	userData["firstName"] = firstName
-	userData["lastName"] = lastName
-	userData["email"] = email
-	userData["number"] = strconv.FormatUint(uint64(userTickets), 10)
+	/*
+		var userData = make(map[string]string)
+		userData["firstName"] = firstName
+		userData["lastName"] = lastName
+		userData["email"] = email
+		userData["number"] = strconv.FormatUint(uint64(userTickets), 10)
+	*/
+	var userData = UserData{
+		firstName:       firstName,
+		lastName:        lastName,
+		email:           email,
+		numberOfTickets: userTickets,
+	}
 	// bookings[0] = firstName + " " + lastName
 	// append添加一个元素到切片的末尾，并返回一个添加后的切片，显然可以直接赋给bookings
 	bookings = append(bookings, userData)
@@ -68,4 +84,18 @@ func bookTickets() {
 	fmt.Printf("You will receive an confirmation email at %v\n", email)
 	fmt.Printf("%v tickets remaining for %v\n", remainingTickets, conferenceName)
 	fmt.Printf("The list of all booking: %v\n", bookings)
+}
+func PrintFirstNames(bookings []UserData) []string {
+	firstNames := []string{}
+	for _, booking := range bookings {
+		// var names = strings.Fields(booking)
+		// case 1
+		// var firname = booking["firstName"]
+		// firstNames = append(firstNames, firname)
+		// case 2
+		// firstNames = append(firstNames, booking["firstName"])
+		// case 3
+		firstNames = append(firstNames, booking.firstName)
+	}
+	return firstNames
 }
