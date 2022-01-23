@@ -3,23 +3,23 @@ package main
 import (
 	"booking-app/helper"
 	"fmt"
-	"strings"
+	"strconv"
 )
 
 var (
-	bookings    []string
 	firstName   string
 	lastName    string
 	userTickets uint
 	email       string
 )
+var bookings = make([]map[string]string, 0) // 初始长度 == 0
 var conferenceName string = "Go Conference"
 var remainingTickets uint = 50
 
 const conferenceTickets int = 50 // const can't change the value of it
 
 func main() {
-	greetUsers(conferenceName, conferenceTickets, remainingTickets)
+	helper.GreetUsers(conferenceName, conferenceTickets, remainingTickets)
 
 	for remainingTickets > 0 && len(bookings) < 50 {
 		getUserInput()
@@ -28,7 +28,7 @@ func main() {
 		if isValidName && isValidEmail && isValidTicketNumber {
 			bookTickets()
 			// print first names func
-			fmt.Printf("The firstnames of our bookings: %v\n", printFirstNames(bookings))
+			fmt.Printf("The firstnames of our bookings: %v\n", helper.PrintFirstNames(bookings))
 			var noTicketsRemaining = remainingTickets == 0
 			if noTicketsRemaining {
 				// end the program
@@ -36,24 +36,9 @@ func main() {
 				break
 			}
 		} else {
-			incorrectInput(isValidName, isValidEmail, isValidTicketNumber)
+			helper.IncorrectInput(isValidName, isValidEmail, isValidTicketNumber)
 		}
 	}
-}
-
-func greetUsers(confName string, confTick int, remainTick uint) {
-	fmt.Printf("Welcome to %v booking application\n", confName)
-	fmt.Printf("We hava total of %v tickets and %v are still available\n", confTick, remainTick)
-	fmt.Println("Get your tickets here to attend")
-}
-
-func printFirstNames(bookings []string) []string {
-	firstNames := []string{}
-	for _, booking := range bookings {
-		var names = strings.Fields(booking)
-		firstNames = append(firstNames, names[0])
-	}
-	return firstNames
 }
 
 func getUserInput() {
@@ -68,24 +53,19 @@ func getUserInput() {
 	fmt.Scan(&userTickets)
 }
 
-func incorrectInput(isValidName bool, isValidEmail bool, isValidTicketNumber bool) {
-	if !isValidName {
-		fmt.Println("the firstname of lastname is too short")
-	}
-	if !isValidEmail {
-		fmt.Println("the email address you entered is not contain @ sign")
-	}
-	if !isValidTicketNumber {
-		fmt.Println("number of tickets you entered is not valid")
-	}
-}
-
 func bookTickets() {
 	remainingTickets = remainingTickets - userTickets
+	// create a map for user
+	var userData = make(map[string]string)
+	userData["firstName"] = firstName
+	userData["lastName"] = lastName
+	userData["email"] = email
+	userData["number"] = strconv.FormatUint(uint64(userTickets), 10)
 	// bookings[0] = firstName + " " + lastName
 	// append添加一个元素到切片的末尾，并返回一个添加后的切片，显然可以直接赋给bookings
-	bookings = append(bookings, firstName+" "+lastName)
+	bookings = append(bookings, userData)
 	fmt.Printf("User (%v %v) booked %v tickets.\n", firstName, lastName, userTickets)
 	fmt.Printf("You will receive an confirmation email at %v\n", email)
 	fmt.Printf("%v tickets remaining for %v\n", remainingTickets, conferenceName)
+	fmt.Printf("The list of all booking: %v\n", bookings)
 }

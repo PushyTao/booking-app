@@ -110,3 +110,19 @@ func funcName(para1 para1Type,para2 para2Type,......) (returnType1, returnType2,
 这样错误便消除，所以说一个包内的函数在调用另一个包内的函数时，要注意将其首字母大写
 
 在 Go 中，当**变量或函数的首字母大写**的时候，函数会被从包中导出（在包外部可见，**或者说公有的**）
+
+## map
+
+map是一种键值对的映射，和C++有异曲同工之妙
+
+Golang中的map也是一样的
+
+在声明一个map的时候，我们可以直接：
+
+`var userData = make(map[string]string)` 在这里，userData是map的名字，make是开辟一个map
+
+map的键值类型：map[keyType]valueType，对于一个放置map数据的切片，我们可以这样来使用：
+
+![](image/README/1642934902953.png)
+
+在这里我们可以顺便声明出一个初始长度，比如为0
