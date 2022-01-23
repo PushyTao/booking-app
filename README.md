@@ -1,12 +1,30 @@
 # booking-app
 
-learning go
+learning go note
+
+## 数组和切片
 
 array 是固定长度的一种类型，而 slice 是内存大小动态开辟的一种类型
 
 关于循环：
 
 ![](image/README/1642843389549.png)
+
+数组可以对指定下标的进行赋值，切片也是可以的，但是一开始为空，并且不好确定长度所以说我们可以对已经有的元素进行值的指定
+
+
+```go
+// bookings[0] = firstName + " " + lastName
+// append添加一个元素到切片的末尾，并返回一个添加后的切片，显然可以直接赋给bookings
+bookings = append(bookings, firstName+" "+lastName)
+```
+
+切片长度的确定可以使用 `len(sliceName)`来确定
+
+![](image/README/1642926794416.png)
+
+
+## 循环 & 选择
 
 for {
 
@@ -24,8 +42,47 @@ for true {
 
 }这个样子来进行处理，将意味着是一个死循环
 
+条件较少的情况下：
+
+if {
+
+}或者是
+
+if 条件1 {
+
+}else if 条件2 {
+
+}或者是
+
+if 条件1 {
+
+} else if 条件2 {
+
+}....
+
+else {
+
+}
+
 多条件适用switch语句：
 
 ![](image/README/1642846941267.png)
 
 使用switch语句进行编程可能会简化代码
+
+## 函数
+
+可以使用func定义一个函数
+
+```go
+.func funcName(param1 type1,.....) return type{
+}
+```
+
+因为go的函数可以返回多个值，所以说，在对于返回多个返回值的函数的返回类型声明中，可以逐个的声明返回类型，并且用圆括号包括起来，比如：
+
+```go
+func funcName(para1 para1Type,para2 para2Type,......) (returnType1, returnType2,......){
+	return value1,value2......
+}
+```
