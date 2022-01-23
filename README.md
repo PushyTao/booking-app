@@ -2,6 +2,10 @@
 
 learning go note
 
+## 变量
+
+package级别的变量可以在任何地方进行访问，所以说可以在给函数等传递参数上进行很大一部分节省
+
 ## 数组和切片
 
 array 是固定长度的一种类型，而 slice 是内存大小动态开辟的一种类型
@@ -12,7 +16,6 @@ array 是固定长度的一种类型，而 slice 是内存大小动态开辟的�
 
 数组可以对指定下标的进行赋值，切片也是可以的，但是一开始为空，并且不好确定长度所以说我们可以对已经有的元素进行值的指定
 
-
 ```go
 // bookings[0] = firstName + " " + lastName
 // append添加一个元素到切片的末尾，并返回一个添加后的切片，显然可以直接赋给bookings
@@ -22,7 +25,6 @@ bookings = append(bookings, firstName+" "+lastName)
 切片长度的确定可以使用 `len(sliceName)`来确定
 
 ![](image/README/1642926794416.png)
-
 
 ## 循环 & 选择
 
@@ -86,3 +88,9 @@ func funcName(para1 para1Type,para2 para2Type,......) (returnType1, returnType2,
 	return value1,value2......
 }
 ```
+
+## 包
+
+对于包名相同的两个不同的文件，比如main.go 以及 helper.go都是同一个package main，所以说我们可以将在main.go中的一些需要用到的函数放置在helper.go中，在运行的时候要go run main.go helper.go两个文件同时进行运行，否则会出现错误
+
+这样一来就可以大大监护在main.go中的代码篇幅，会有更好的效果
