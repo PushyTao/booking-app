@@ -2,6 +2,10 @@
 
 learning go note
 
+video address :
+
+https://www.youtube.com/watch?v=yyUHQIec83I
+
 ## 变量
 
 package级别的变量可以在任何地方进行访问，所以说可以在给函数等传递参数上进行很大一部分节省
